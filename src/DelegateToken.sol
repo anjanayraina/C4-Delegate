@@ -50,6 +50,7 @@ contract DelegateToken is ReentrancyGuard, IDelegateToken {
     //////////////////////////////////////////////////////////////*/
 
     constructor(Structs.DelegateTokenParameters memory parameters) {
+        // @audit GO use assmebly to check for null address to save some gas 
         if (parameters.delegateRegistry == address(0)) revert Errors.DelegateRegistryZero();
         if (parameters.principalToken == address(0)) revert Errors.PrincipalTokenZero();
         if (parameters.marketMetadata == address(0)) revert Errors.MarketMetadataZero();
@@ -62,6 +63,8 @@ contract DelegateToken is ReentrancyGuard, IDelegateToken {
     /                    Supported Interfaces                      /
     //////////////////////////////////////////////////////////////*/
 
+    // @audit where is this function getting used ?
+    
     function supportsInterface(bytes4 interfaceId) external pure returns (bool) {
         return interfaceId == 0x2a55205a // ERC165 Interface ID for ERC2981
             || interfaceId == 0x01ffc9a7 // ERC165 Interface ID for ERC165
